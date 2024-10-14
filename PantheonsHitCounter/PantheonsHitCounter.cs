@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -158,7 +158,10 @@ namespace PantheonsHitCounter
             if (!_inTransition)
             {
                 var boss = currentPantheon.GetBossBySceneName(_sceneName);
-                if (boss != null) Log($"{boss.name} - Hits: {boss.hits} | PB: {boss.hitsPb}");
+                if (boss != null) {
+                    Log($"{boss.name} - Hits: {boss.hits} | Pantheon: {currentPantheon.number}");
+                    Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 1);
+                }
             }
 
             
@@ -173,6 +176,12 @@ namespace PantheonsHitCounter
         private void OnLeavePantheon(bool completed = false)
         {
             Log($"{(completed ? "Completed" : "Failed")} {currentPantheon.name}");
+
+            if (!completed)
+            {
+                var boss = currentPantheon.GetBossBySceneName(_sceneName);
+                if (boss != null) Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 0);
+            }
 
             if (completed && currentPantheon.IsPbRun()) UpdateData();
 
