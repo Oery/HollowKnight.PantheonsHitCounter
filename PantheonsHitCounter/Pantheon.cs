@@ -13,6 +13,7 @@ namespace PantheonsHitCounter
         [JsonProperty("bosses")] public List<Boss> bosses;
         public List<Boss> nextBosses;
         public int bossNumber;
+        public int runs;
 
         public int TotalHits
         {

@@ -22,6 +22,7 @@ namespace PantheonsHitCounter
     public class PantheonData
     {
         public int number;
+        public int runs;
         public List<BossData> bosses;
 
         public PantheonData(int pantheonNumber)

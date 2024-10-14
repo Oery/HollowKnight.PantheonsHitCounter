@@ -104,6 +104,8 @@ namespace PantheonsHitCounter
                 var pantheonData = _localData.pantheons[p];
                 if (pantheonData.bosses.Count == 0) continue;
 
+                pantheon.runs = pantheonData.runs;
+
                 for (var b = 0; b < pantheon.bosses.Count; b++)
                 {
                     var bossData = pantheonData.bosses[b];
@@ -144,6 +146,10 @@ namespace PantheonsHitCounter
             currentPantheon.ResetCounter();
             currentPantheon.ReplaceBosses();
 
+            currentPantheon.runs += 1;
+            var pantheonData = _localData.pantheons[pantheonNumber - 1];
+            pantheonData.runs = currentPantheon.runs;
+
             if (ResourcesLoader.Instance.canvas) ResourcesLoader.Instance.Destroy();
             ResourcesLoader.Instance.BuildMenus(currentPantheon);
             
@@ -161,7 +167,7 @@ namespace PantheonsHitCounter
                 if (boss != null) {
                     Log($"{boss.name} - Hits: {boss.hits} | Pantheon: {currentPantheon.number}");
                     int killedRun = (boss.hits > 0 && (currentPantheon.TotalHits - boss.hits) == 0) ? 1 : 0;
-                    Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 1, killedRun);
+                    Spreadsheet.InsertRow(currentPantheon.runs, currentPantheon.number, boss.name, boss.hits, 1, killedRun);
                 }
             }
 
@@ -184,7 +190,7 @@ namespace PantheonsHitCounter
                 if (boss != null)
                 {
                     int killedRun = (boss.hits > 0 && (currentPantheon.TotalHits - boss.hits) == 0) ? 1 : 0;
-                    Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 0, killedRun);
+                    Spreadsheet.InsertRow(currentPantheon.runs, currentPantheon.number, boss.name, boss.hits, 0, killedRun);
                 }
             }
 
