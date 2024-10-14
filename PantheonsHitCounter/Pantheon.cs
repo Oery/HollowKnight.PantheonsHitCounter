@@ -14,6 +14,7 @@ namespace PantheonsHitCounter
         public List<Boss> nextBosses;
         public int bossNumber;
         public int runs;
+        public DateTime startTime;
 
         public int TotalHits
         {

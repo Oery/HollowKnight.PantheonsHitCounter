@@ -150,6 +150,8 @@ namespace PantheonsHitCounter
             var pantheonData = _localData.pantheons[pantheonNumber - 1];
             pantheonData.runs = currentPantheon.runs;
 
+            currentPantheon.startTime = DateTime.Now;
+
             if (ResourcesLoader.Instance.canvas) ResourcesLoader.Instance.Destroy();
             ResourcesLoader.Instance.BuildMenus(currentPantheon);
             
@@ -167,7 +169,8 @@ namespace PantheonsHitCounter
                 if (boss != null) {
                     Log($"{boss.name} - Hits: {boss.hits} | Pantheon: {currentPantheon.number}");
                     int killedRun = (boss.hits > 0 && (currentPantheon.TotalHits - boss.hits) == 0) ? 1 : 0;
-                    Spreadsheet.InsertRow(currentPantheon.runs, currentPantheon.number, boss.name, boss.hits, 1, killedRun);
+                    DateTime dateTime = currentPantheon.bossNumber == 0 ? currentPantheon.startTime : DateTime.Now;
+                    Spreadsheet.InsertRow(currentPantheon.runs, currentPantheon.number, boss.name, boss.hits, 1, killedRun, dateTime);
                 }
             }
 
@@ -190,7 +193,7 @@ namespace PantheonsHitCounter
                 if (boss != null)
                 {
                     int killedRun = (boss.hits > 0 && (currentPantheon.TotalHits - boss.hits) == 0) ? 1 : 0;
-                    Spreadsheet.InsertRow(currentPantheon.runs, currentPantheon.number, boss.name, boss.hits, 0, killedRun);
+                    Spreadsheet.InsertRow(currentPantheon.runs, currentPantheon.number, boss.name, boss.hits, 0, killedRun, DateTime.Now);
                 }
             }
 
