@@ -160,7 +160,8 @@ namespace PantheonsHitCounter
                 var boss = currentPantheon.GetBossBySceneName(_sceneName);
                 if (boss != null) {
                     Log($"{boss.name} - Hits: {boss.hits} | Pantheon: {currentPantheon.number}");
-                    Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 1);
+                    int killedRun = (boss.hits > 0 && (currentPantheon.TotalHits - boss.hits) == 0) ? 1 : 0;
+                    Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 1, killedRun);
                 }
             }
 
@@ -180,7 +181,11 @@ namespace PantheonsHitCounter
             if (!completed)
             {
                 var boss = currentPantheon.GetBossBySceneName(_sceneName);
-                if (boss != null) Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 0);
+                if (boss != null)
+                {
+                    int killedRun = (boss.hits > 0 && (currentPantheon.TotalHits - boss.hits) == 0) ? 1 : 0;
+                    Spreadsheet.InsertRow(currentPantheon.number, boss.name, boss.hits, 0, killedRun);
+                }
             }
 
             if (completed && currentPantheon.IsPbRun()) UpdateData();
