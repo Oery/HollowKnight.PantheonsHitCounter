@@ -1,4 +1,4 @@
-﻿<!-- Credit to SFGrenade https://github.com/SFGrenade -->
+<!-- Credit to SFGrenade https://github.com/SFGrenade -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <RootNamespace>PantheonsHitCounter</RootNamespace>
@@ -340,5 +340,8 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="ReadMe.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\Images\*.png" />
   </ItemGroup>
 </Project>
