@@ -47,7 +47,7 @@ namespace PantheonsHitCounter
                 new HorizontalOption(
                     "Counter mode",
                     "Interface mode of the counter",
-                    new []{ "Default", "Compact" },
+                    ["Default", "Compact"],
                     mode => {
                         PantheonsHitCounter.instance.globalData.compactMode = mode == 1;
                         _menuRef?.Find("CustomSlider-MaximumSplits")?.updateAfter(el => {
@@ -62,7 +62,7 @@ namespace PantheonsHitCounter
                 new HorizontalOption(
                     "Anonymize",
                     "Hides bosses icon, hits and PB",
-                    new []{ "Off", "On" },
+                    ["Off", "On"],
                     anonymize => {
                         PantheonsHitCounter.instance.globalData.anonymize = anonymize == 1;
                         PantheonsHitCounter.instance.ToggleCurrentCounter();
